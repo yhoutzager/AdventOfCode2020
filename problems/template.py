@@ -1,2 +1,9 @@
+import time
+
 if __name__ == '__main__':
-	file = open("input", "r")
+	start = time.time()
+	# file = open("input", "r")
+
+
+	end = time.time()
+	print('Time: {:.3f}ms'.format(end - start))
