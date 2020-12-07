@@ -24,12 +24,7 @@ def check_bag_for(bag, target, bags):
 
 
 def determine_number_of_sub_bags(target, bags):
-	sum = 1
-
-	for sub_bag in bags[target]:
-		sum += int(sub_bag[0]) * determine_number_of_sub_bags(sub_bag[1], bags)
-
-	return sum
+	return 1 + sum([int(sub_bag[0]) * determine_number_of_sub_bags(bags[sub_bag[1]], bags) for sub_bag in target])
 
 if __name__ == '__main__':
 	start = time.time()
@@ -44,7 +39,7 @@ if __name__ == '__main__':
 
 	# print(bags)
 
-	answer = determine_number_of_sub_bags(target, bags) - 1
+	answer = determine_number_of_sub_bags(bags[target], bags)
 
 	print('Answer part 2: {}'.format(answer))
 
