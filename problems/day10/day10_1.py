@@ -1,12 +1,14 @@
 import time
 
+
 def is_valid(array_to_check):
 	for i in range(1, len(array_to_check)):
 		if array_to_check[i] - array_to_check[i - 1] > 3:
 			return False
 	return True
 
-def check_perm(sub_array):
+
+def check_perm(sub_array, smallest_removal):
 	print(sub_array)
 	if not is_valid(sub_array):
 		return 1
@@ -15,16 +17,18 @@ def check_perm(sub_array):
 		return 1
 	sum = 1
 	for i in range(1, len(sub_array) - 1):
+		if sub_array[i] < smallest_removal:
+			continue
 		copy_arr = sub_array.copy()
 		del copy_arr[i]
-		sum += check_perm(copy_arr)
+		sum += check_perm(copy_arr, sub_array[i])
 	# print(sub_array, sum)
 	return sum
 
 
 if __name__ == '__main__':
 	start = time.time()
-	with open("testinput2", "r") as file:
+	with open("testinput", "r") as file:
 		array = [int(x) for x in file.readlines()]
 
 	array.append(0)
@@ -47,7 +51,6 @@ if __name__ == '__main__':
 
 	print('Answer part 1: {}'.format(answer))
 
-
 	answer = 1
 	print(array)
 
@@ -61,14 +64,14 @@ if __name__ == '__main__':
 			if array[j] - array[j - 1] == 3 or j == len(array) - 1:
 				end_sub_index = j
 				break
-			elif array[j] - array[j-1] == 2 and array[j-1] - array[j-2] == 2:
+			elif array[j] - array[j - 1] == 2 and array[j - 1] - array[j - 2] == 2:
 				end_sub_index = j - 1
 				break
 			elif j == len(array):
 				end_sub_index = len(array)
 
 		# calculate subsection
-		answer *= check_perm(array[begin_sub_index:end_sub_index])
+		answer *= check_perm(array[begin_sub_index:end_sub_index], 0)
 
 		# set index to after subsection
 		print(end_sub_index, answer)
