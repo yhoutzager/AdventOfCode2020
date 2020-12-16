@@ -2,8 +2,9 @@ import time
 
 if __name__ == '__main__':
 	start = time.time()
-	with open("input", "r") as file:
-		array = [int(x) for x in file.readlines()]
+	# with open("input", "r") as file:
+	with open("testinput", "r") as file:
+		array = file.read().split()
 
 	answer = 0
 
